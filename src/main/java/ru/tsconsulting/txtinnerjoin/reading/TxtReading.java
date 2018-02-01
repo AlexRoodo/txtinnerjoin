@@ -8,8 +8,7 @@ import java.nio.file.*;
 import java.util.*;
 
 public class TxtReading {
-    public void readFromTxt(String file, ArrayList<TableRow> arrayList){
-
+    public void readFromTxt(String file, List<TableRow> list){
         try {
             List<String> linesList = Files.readAllLines(Paths.get(file), StandardCharsets.UTF_8);
 
@@ -21,7 +20,7 @@ public class TxtReading {
                 }
                 tableRow.setId(Integer.parseInt(strings[0]));
                 tableRow.setInitValue(strings[1]);
-                arrayList.add(tableRow);
+                list.add(tableRow);
             }
 
         } catch (IOException e) {

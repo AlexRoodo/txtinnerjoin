@@ -7,6 +7,7 @@ import ru.tsconsulting.txtinnerjoin.writing.TxtWriting;
 
 import java.nio.file.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class InnerJoin {
     public static void main(String[] args) {
@@ -22,17 +23,22 @@ public class InnerJoin {
         if (firstFilePath.toFile().exists() && secondFilePath.toFile().exists()) {
 
             TxtReading txtReading = new TxtReading();
-            ArrayList<TableRow> firstArrayList = new ArrayList<>();
+            /*ArrayList<TableRow> firstArrayList = new ArrayList<>();
             txtReading.readFromTxt(firstFilePath.toString(), firstArrayList);
             ArrayList<TableRow> secondArrayList = new ArrayList<>();
-            txtReading.readFromTxt(secondFilePath.toString(), secondArrayList);
+            txtReading.readFromTxt(secondFilePath.toString(), secondArrayList);*/
+            LinkedList<TableRow> firstLinkedList = new LinkedList<>();
+            txtReading.readFromTxt(firstFilePath.toString(), firstLinkedList);
+            LinkedList<TableRow> secondLinkedList = new LinkedList<>();
+            txtReading.readFromTxt(secondFilePath.toString(), secondLinkedList);
+
 
             JoinTables joinTables = new JoinTables();
-            ArrayList<TableRow> arrayList = joinTables.joinTables(firstArrayList, secondArrayList);
+            /*ArrayList<TableRow> arrayList = joinTables.joinTables(firstArrayList, secondArrayList);*/
 
             TxtWriting txtWriting = new TxtWriting();
             Path resultPath = Paths.get(firstFilePath.getParent().toString(), "Result.txt");
-            txtWriting.writeToTxt(resultPath.toString(), arrayList);
+            /*txtWriting.writeToTxt(resultPath.toString(), arrayList);*/
 
         } else {
             System.out.println("Программе переданы неверные аргументы.");
