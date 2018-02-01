@@ -1,0 +1,6 @@
+﻿ID  VALUE               VALUE               
+1    Александр           Москва              
+2    John                Rome                
+3    Екатерина           Санкт-Петербург     
+2    Michael             Rome                
+9    Ольга               Уфа                 
