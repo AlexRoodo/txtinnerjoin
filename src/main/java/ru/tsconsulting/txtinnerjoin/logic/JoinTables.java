@@ -3,6 +3,7 @@ package ru.tsconsulting.txtinnerjoin.logic;
 import ru.tsconsulting.txtinnerjoin.objects.TableRow;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -65,5 +66,27 @@ public class JoinTables {
         return resultLinkedList;
     }
 
+    public HashMap<Integer, TableRow> joinTables(HashMap<Integer, TableRow> firstHashMap,
+                                                 HashMap<Integer, TableRow> secondHashMap) {
 
+        HashMap<Integer, TableRow> resultHashMap;
+        if (firstHashMap.keySet().size() < secondHashMap.keySet().size()) {
+            resultHashMap = new HashMap<>(secondHashMap);
+        } else {
+            resultHashMap = new HashMap<>(firstHashMap);
+            firstHashMap = secondHashMap;
+        }
+        for (Integer i : firstHashMap.keySet()) {
+            if (resultHashMap.containsKey(i)) {
+                resultHashMap.get(i).setAddedValue(firstHashMap.get(i).getInitValue());
+            }
+        }
+        for (Integer i : resultHashMap.keySet()) {
+            if (resultHashMap.get(i).getAddedValue().equalsIgnoreCase("")) {
+                resultHashMap.remove(i);
+            }
+        }
+        resultHashMap.keySet().forEach(System.out::println);
+        return resultHashMap;
+    }
 }

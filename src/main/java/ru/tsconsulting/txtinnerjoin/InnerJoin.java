@@ -7,6 +7,7 @@ import ru.tsconsulting.txtinnerjoin.writing.TxtWriting;
 
 import java.nio.file.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class InnerJoin {
@@ -34,18 +35,27 @@ public class InnerJoin {
 
             firstLinkedList.sort(TableRow::compareTo);
             secondLinkedList.sort(TableRow::compareTo);*/
+            HashMap<Integer, TableRow> firstHashMap = new HashMap<>();
+            txtReading.readFromTxt(firstFilePath.toString(), firstHashMap);
+            HashMap<Integer, TableRow> secondHashMap = new HashMap<>();
+            txtReading.readFromTxt(secondFilePath.toString(), secondHashMap);
 
             JoinTables joinTables = new JoinTables();
             /*ArrayList<TableRow> resultArrayList = joinTables.joinTables(firstArrayList,
             secondArrayList);*/
-            /*LinkedList<TableRow> resultLinkedList = joinTables.joinTables(firstLinkedList, secondLinkedList);
+            /*LinkedList<TableRow> resultLinkedList = joinTables.joinTables(firstLinkedList,
+            secondLinkedList);
             resultLinkedList.forEach(System.out::println);*/
+            HashMap<Integer, TableRow> resultHashMap = joinTables.joinTables(firstHashMap,
+            secondHashMap);
 
 
             TxtWriting txtWriting = new TxtWriting();
             Path resultPath = Paths.get(firstFilePath.getParent().toString(), "Result.txt");
             /*txtWriting.writeToTxt(resultPath.toString(), resultArrayList);*/
-            /*txtWriting.writeToTxt(resultPath.toString(), resultLinkedList);*/
+            LinkedList<TableRow> resultLinkedList = new LinkedList<>(resultHashMap.values());
+            txtWriting.writeToTxt(resultPath.toString(), resultLinkedList);
+
 
         } else {
             System.out.println("Программе переданы неверные аргументы.");
