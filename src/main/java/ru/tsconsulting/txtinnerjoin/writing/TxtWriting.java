@@ -7,9 +7,10 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TxtWriting {
-    public void writeToTxt(String file, ArrayList<TableRow> resultArrayList) {
+    public void writeToTxt(String file, List<TableRow> resultArrayList) {
         ArrayList<String> arrayList = new ArrayList<>();
 
         for (TableRow tr : resultArrayList) {

@@ -27,18 +27,25 @@ public class InnerJoin {
             txtReading.readFromTxt(firstFilePath.toString(), firstArrayList);
             ArrayList<TableRow> secondArrayList = new ArrayList<>();
             txtReading.readFromTxt(secondFilePath.toString(), secondArrayList);*/
-            LinkedList<TableRow> firstLinkedList = new LinkedList<>();
+            /*LinkedList<TableRow> firstLinkedList = new LinkedList<>();
             txtReading.readFromTxt(firstFilePath.toString(), firstLinkedList);
             LinkedList<TableRow> secondLinkedList = new LinkedList<>();
             txtReading.readFromTxt(secondFilePath.toString(), secondLinkedList);
 
+            firstLinkedList.sort(TableRow::compareTo);
+            secondLinkedList.sort(TableRow::compareTo);*/
 
             JoinTables joinTables = new JoinTables();
-            /*ArrayList<TableRow> arrayList = joinTables.joinTables(firstArrayList, secondArrayList);*/
+            /*ArrayList<TableRow> resultArrayList = joinTables.joinTables(firstArrayList,
+            secondArrayList);*/
+            /*LinkedList<TableRow> resultLinkedList = joinTables.joinTables(firstLinkedList, secondLinkedList);
+            resultLinkedList.forEach(System.out::println);*/
+
 
             TxtWriting txtWriting = new TxtWriting();
             Path resultPath = Paths.get(firstFilePath.getParent().toString(), "Result.txt");
-            /*txtWriting.writeToTxt(resultPath.toString(), arrayList);*/
+            /*txtWriting.writeToTxt(resultPath.toString(), resultArrayList);*/
+            /*txtWriting.writeToTxt(resultPath.toString(), resultLinkedList);*/
 
         } else {
             System.out.println("Программе переданы неверные аргументы.");

@@ -33,4 +33,13 @@ public class TableRow implements Comparable<TableRow> {
     public int compareTo(TableRow o) {
         return this.getId() - o.getId();
     }
+
+    @Override
+    public String toString() {
+        if (getAddedValue().equalsIgnoreCase("")) {
+            return getId() + "\t" + getInitValue();
+        } else {
+            return getId() + "\t" + getInitValue() + "\t" + getAddedValue();
+        }
+    }
 }
