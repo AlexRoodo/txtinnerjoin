@@ -24,39 +24,18 @@ public class InnerJoin {
         if (firstFilePath.toFile().exists() && secondFilePath.toFile().exists()) {
 
             TxtReading txtReading = new TxtReading();
-            /*ArrayList<TableRow> firstArrayList = new ArrayList<>();
+            ArrayList<TableRow> firstArrayList = new ArrayList<>();
             txtReading.readFromTxt(firstFilePath.toString(), firstArrayList);
             ArrayList<TableRow> secondArrayList = new ArrayList<>();
-            txtReading.readFromTxt(secondFilePath.toString(), secondArrayList);*/
-            /*LinkedList<TableRow> firstLinkedList = new LinkedList<>();
-            txtReading.readFromTxt(firstFilePath.toString(), firstLinkedList);
-            LinkedList<TableRow> secondLinkedList = new LinkedList<>();
-            txtReading.readFromTxt(secondFilePath.toString(), secondLinkedList);
-
-            firstLinkedList.sort(TableRow::compareTo);
-            secondLinkedList.sort(TableRow::compareTo);*/
-            HashMap<Integer, TableRow> firstHashMap = new HashMap<>();
-            txtReading.readFromTxt(firstFilePath.toString(), firstHashMap);
-            HashMap<Integer, TableRow> secondHashMap = new HashMap<>();
-            txtReading.readFromTxt(secondFilePath.toString(), secondHashMap);
+            txtReading.readFromTxt(secondFilePath.toString(), secondArrayList);
 
             JoinTables joinTables = new JoinTables();
-            /*ArrayList<TableRow> resultArrayList = joinTables.joinTables(firstArrayList,
-            secondArrayList);*/
-            /*LinkedList<TableRow> resultLinkedList = joinTables.joinTables(firstLinkedList,
-            secondLinkedList);
-            resultLinkedList.forEach(System.out::println);*/
-            HashMap<Integer, TableRow> resultHashMap = joinTables.joinTables(firstHashMap,
-            secondHashMap);
-
+            ArrayList<TableRow> resultArrayList = joinTables.joinTables(firstArrayList,
+            secondArrayList);
 
             TxtWriting txtWriting = new TxtWriting();
             Path resultPath = Paths.get(firstFilePath.getParent().toString(), "Result.txt");
-            /*txtWriting.writeToTxt(resultPath.toString(), resultArrayList);*/
-            LinkedList<TableRow> resultLinkedList = new LinkedList<>(resultHashMap.values());
-            txtWriting.writeToTxt(resultPath.toString(), resultLinkedList);
-
-
+            txtWriting.writeToTxt(resultPath.toString(), resultArrayList);
         } else {
             System.out.println("Программе переданы неверные аргументы.");
             System.exit(1);

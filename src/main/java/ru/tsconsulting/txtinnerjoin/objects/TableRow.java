@@ -1,24 +1,21 @@
 package ru.tsconsulting.txtinnerjoin.objects;
 
+import java.util.ArrayList;
+
 public class TableRow implements Comparable<TableRow> {
-    private String initValue = "";
-    private String addedValue = "";
+    private ArrayList<String> values = null;
     private int id = 0;
+    private StringBuilder stringBuilder = null;
 
-    public String getAddedValue() {
-        return addedValue;
+    public ArrayList<String> getValues() {
+        if (values == null) {
+            values = new ArrayList<>();
+        }
+        return values;
     }
 
-    public void setAddedValue(String addedValue) {
-        this.addedValue = addedValue;
-    }
-
-    public String getInitValue() {
-        return initValue;
-    }
-
-    public void setInitValue(String initValue) {
-        this.initValue = initValue;
+    public void setValues(String s) {
+        getValues().add(s);
     }
 
     public int getId() {
@@ -36,10 +33,12 @@ public class TableRow implements Comparable<TableRow> {
 
     @Override
     public String toString() {
-        if (getAddedValue().equalsIgnoreCase("")) {
-            return getId() + "\t" + getInitValue();
-        } else {
-            return getId() + "\t" + getInitValue() + "\t" + getAddedValue();
+        stringBuilder = new StringBuilder("");
+        stringBuilder.append(getId()).append("\t");
+        for (String s :
+                getValues()) {
+            stringBuilder.append(s).append("\t");
         }
+        return stringBuilder.toString();
     }
 }

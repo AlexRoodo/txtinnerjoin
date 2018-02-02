@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 public class JoinTables {
-    public ArrayList<TableRow> joinTables(ArrayList<TableRow> firstArrayList,
+    /*public ArrayList<TableRow> joinTables(ArrayList<TableRow> firstArrayList,
                                           ArrayList<TableRow> secondArrayList) {
         ArrayList<TableRow> resultArrayList = new ArrayList<>();
 
@@ -17,15 +17,15 @@ public class JoinTables {
                 if (tr1.compareTo(tr2) == 0) {
                     TableRow tableRow = new TableRow();
                     tableRow.setId(tr1.getId());
-                    tableRow.setInitValue(tr1.getInitValue());
-                    tableRow.setAddedValue(tr2.getInitValue());
+                    tableRow.setValues(tr1.getValues().get(0));
+                    tableRow.setValues(tr2.getValues().get(0));
                     resultArrayList.add(tableRow);
                 }
             }
         }
 
         return resultArrayList;
-    }
+    }*/
 
     public LinkedList<TableRow> joinTables(LinkedList<TableRow> firstLinkedList,
                                                 LinkedList<TableRow> secondLinkedList) {
@@ -52,8 +52,8 @@ public class JoinTables {
             } else {
                 TableRow tableRow = new TableRow();
                 tableRow.setId(firstRow.getId());
-                tableRow.setInitValue(firstRow.getInitValue());
-                tableRow.setAddedValue(secondRow.getInitValue());
+                tableRow.setValues(firstRow.getValues());
+                tableRow.setAddedValue(secondRow.getValues());
                 resultLinkedList.add(tableRow);
                 if (firstIterrator.hasNext() && secondIterrator.hasNext()) {
                     firstRow = firstIterrator.next();
@@ -66,7 +66,7 @@ public class JoinTables {
         return resultLinkedList;
     }
 
-    public HashMap<Integer, TableRow> joinTables(HashMap<Integer, TableRow> firstHashMap,
+    /*public HashMap<Integer, TableRow> joinTables(HashMap<Integer, TableRow> firstHashMap,
                                                  HashMap<Integer, TableRow> secondHashMap) {
 
         HashMap<Integer, TableRow> resultHashMap;
@@ -78,7 +78,7 @@ public class JoinTables {
         }
         for (Integer i : firstHashMap.keySet()) {
             if (resultHashMap.containsKey(i)) {
-                resultHashMap.get(i).setAddedValue(firstHashMap.get(i).getInitValue());
+                resultHashMap.get(i).setAddedValue(firstHashMap.get(i).getValues());
             }
         }
         for (Integer i : resultHashMap.keySet()) {
@@ -88,5 +88,5 @@ public class JoinTables {
         }
         resultHashMap.keySet().forEach(System.out::println);
         return resultHashMap;
-    }
+    }*/
 }

@@ -14,8 +14,7 @@ public class TxtWriting {
         ArrayList<String> arrayList = new ArrayList<>();
 
         for (TableRow tr : resultArrayList) {
-            String s = String.format("%-4d%-20s%-20s", tr.getId(), tr.getInitValue(), tr.getAddedValue());
-            arrayList.add(s);
+            arrayList.add(tr.toString());
         }
         try {
             Files.write(Paths.get(file), arrayList, StandardCharsets.UTF_8);
