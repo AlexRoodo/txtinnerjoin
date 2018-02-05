@@ -24,13 +24,16 @@ public class InnerJoin {
         if (firstFilePath.toFile().exists() && secondFilePath.toFile().exists()) {
 
             TxtReading txtReading = new TxtReading();
-            ArrayList<TableRow> firstArrayList = new ArrayList<>();
+            LinkedList<TableRow> firstArrayList = new LinkedList<>();
             txtReading.readFromTxt(firstFilePath.toString(), firstArrayList);
-            ArrayList<TableRow> secondArrayList = new ArrayList<>();
+            LinkedList<TableRow> secondArrayList = new LinkedList<>();
             txtReading.readFromTxt(secondFilePath.toString(), secondArrayList);
 
+            firstArrayList.sort(TableRow::compareTo);
+            secondArrayList.sort(TableRow::compareTo);
+
             JoinTables joinTables = new JoinTables();
-            ArrayList<TableRow> resultArrayList = joinTables.joinTables(firstArrayList,
+            LinkedList<TableRow> resultArrayList = joinTables.joinTables(firstArrayList,
             secondArrayList);
 
             TxtWriting txtWriting = new TxtWriting();
