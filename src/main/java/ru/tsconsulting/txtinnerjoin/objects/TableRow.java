@@ -36,6 +36,7 @@ public class TableRow implements Comparable<TableRow> {
 
     @Override
     public String toString() {
-        return String.format("%-4d%-20s%-20s", this.getId(), this.getInitValue(), this.getSecondValue());
+        return String.format("%-5d%-15s%-15s",
+                this.getId(), this.getInitValue(), this.getSecondValue());
     }
 }

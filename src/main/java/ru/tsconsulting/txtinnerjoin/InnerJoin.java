@@ -32,7 +32,6 @@ public class InnerJoin {
             txtReading.readFromTxt(firstFilePath.toString(), firstArrayList);
             ArrayList<TableRow> secondArrayList = new ArrayList<>();
             txtReading.readFromTxt(secondFilePath.toString(), secondArrayList);
-
             firstLinkedList.sort(TableRow::compareTo);
             secondLinkedList.sort(TableRow::compareTo);
 
@@ -40,7 +39,7 @@ public class InnerJoin {
             LinkedList<TableRow> resultJoinList = joinTables.joinTables(firstArrayList,
                     secondArrayList);
             LinkedList<TableRow> resultMergeJoin = joinTables.mergeJoinTables(firstLinkedList,
-            secondLinkedList);
+                    secondLinkedList);
 
             firstLinkedList = new LinkedList<>();
             txtReading.readFromTxt(firstFilePath.toString(), firstLinkedList);

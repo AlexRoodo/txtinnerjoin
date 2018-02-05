@@ -6,19 +6,21 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class TxtWriting {
     public void writeToTxt(String file, List<TableRow> resultArrayList) {
-        ArrayList<String> arrayList = new ArrayList<>();
+        LinkedList<String> linkedList = new LinkedList<>();
 
 
         for (TableRow tr : resultArrayList) {
-            arrayList.add(tr.toString());
+            linkedList.add(tr.toString());
         }
+        String header = String.format("%-5s%-15s%-15s", "ID", "A.Table", "B.Table");
+        linkedList.addFirst(header);
         try {
-            Files.write(Paths.get(file), arrayList, StandardCharsets.UTF_8);
+            Files.write(Paths.get(file), linkedList, StandardCharsets.UTF_8);
         } catch (IOException e) {
             System.out.println("Ошибка записи в файл.");
         }
