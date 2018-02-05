@@ -13,6 +13,7 @@ public class TxtWriting {
     public void writeToTxt(String file, List<TableRow> resultArrayList) {
         ArrayList<String> arrayList = new ArrayList<>();
 
+
         for (TableRow tr : resultArrayList) {
             arrayList.add(tr.toString());
         }

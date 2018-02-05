@@ -19,7 +19,7 @@ public class TxtReading {
                     continue;
                 }
                 tableRow.setId(Integer.parseInt(strings[0]));
-                tableRow.getValues().add(strings[1]);
+                tableRow.setInitValue(strings[1]);
                 list.add(tableRow);
             }
 

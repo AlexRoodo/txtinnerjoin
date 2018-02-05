@@ -17,8 +17,8 @@ public class JoinTables {
                 if (tr1.compareTo(tr2) == 0) {
                     TableRow tableRow = new TableRow();
                     tableRow.setId(tr1.getId());
-                    tableRow.setValues(tr1.getValues().get(0));
-                    tableRow.setValues(tr2.getValues().get(0));
+                    tableRow.setInitValue(tr1.getInitValue());
+                    tableRow.setSecondValue(tr2.getInitValue());
                     resultArrayList.add(tableRow);
                 }
             }
@@ -84,8 +84,8 @@ public class JoinTables {
         for (TableRow tr : tempLinkedList) {
             tableRow = new TableRow();
             tableRow.setId(leftCurrentRow.getId());
-            tableRow.getValues().add(leftCurrentRow.getValues().get(0));
-            tableRow.getValues().add(tr.getValues().get(0));
+            tableRow.setInitValue(leftCurrentRow.getInitValue());
+            tableRow.setSecondValue(tr.getInitValue());
             resultLinkedList.add(tableRow);
         }
     }
@@ -108,10 +108,10 @@ public class JoinTables {
 
         for (TableRow currentTableRow : initialList) {
             if (resultHashMap.containsKey(currentTableRow.getId())) {
-                resultHashMap.get(currentTableRow.getId()).add(currentTableRow.getValues().get(0));
+                resultHashMap.get(currentTableRow.getId()).add(currentTableRow.getInitValue());
             } else {
-                resultHashMap.put(currentTableRow.getId(),
-                        new LinkedList<>(currentTableRow.getValues()));
+                resultHashMap.put(currentTableRow.getId(), new LinkedList<>());
+                resultHashMap.get(currentTableRow.getId()).add(currentTableRow.getInitValue());
             }
         }
 
@@ -120,8 +120,8 @@ public class JoinTables {
                 for (String s : resultHashMap.get(actualTableRow.getId())) {
                     TableRow tableRow = new TableRow();
                     tableRow.setId(actualTableRow.getId());
-                    tableRow.getValues().add(actualTableRow.getValues().get(0));
-                    tableRow.getValues().add(s);
+                    tableRow.setInitValue(actualTableRow.getInitValue());
+                    tableRow.setSecondValue(s);
                     resultLinkedList.add(tableRow);
                 }
             }
