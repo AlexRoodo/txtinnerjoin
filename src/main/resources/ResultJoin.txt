@@ -1,0 +1,8 @@
+ID   A.Table        B.Table        
+1    Александр      Москва         
+2    John           Rome           
+2    John           Paris          
+3    Екатерина      Санкт-Петербург
+2    Michael        Rome           
+2    Michael        Paris          
+9    Ольга          Уфа            
