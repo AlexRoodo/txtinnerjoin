@@ -8,12 +8,12 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 public class JoinTables {
-    /*public ArrayList<TableRow> joinTables(ArrayList<TableRow> firstArrayList,
-                                          ArrayList<TableRow> secondArrayList) {
-        ArrayList<TableRow> resultArrayList = new ArrayList<>();
+    /*public LinkedList<TableRow> joinTables(ArrayList<TableRow> leftArrayList,
+                                          ArrayList<TableRow> rightArrayList) {
+        LinkedList<TableRow> resultArrayList = new LinkedList<>();
 
-        for (TableRow tr1 : firstArrayList) {
-            for (TableRow tr2: secondArrayList) {
+        for (TableRow tr1 : leftArrayList) {
+            for (TableRow tr2: rightArrayList) {
                 if (tr1.compareTo(tr2) == 0) {
                     TableRow tableRow = new TableRow();
                     tableRow.setId(tr1.getId());
@@ -27,43 +27,67 @@ public class JoinTables {
         return resultArrayList;
     }*/
 
-    public LinkedList<TableRow> joinTables(LinkedList<TableRow> firstLinkedList,
-                                                LinkedList<TableRow> secondLinkedList) {
+    public LinkedList<TableRow> joinTables(LinkedList<TableRow> leftLinkedList,
+                                                LinkedList<TableRow> rightLinkedList) {
 
         LinkedList<TableRow> resultLinkedList = new LinkedList<>();
-        Iterator<TableRow> firstIterrator = firstLinkedList.listIterator();
-        Iterator<TableRow> secondIterrator = secondLinkedList.listIterator();
-        TableRow firstRow = firstIterrator.next();
-        TableRow secondRow = secondIterrator.next();
+        LinkedList<TableRow> tempLinkedList = new LinkedList<>();
+        Iterator<TableRow> leftIterator = leftLinkedList.listIterator();
+        Iterator<TableRow> rightIterator = rightLinkedList.listIterator();
+        TableRow leftCurrentRow = leftIterator.next();
+        TableRow rightCurrentRow = rightIterator.next();
+        TableRow leftNextRow;
+        TableRow rightNextRow;
+
 
         while (true) {
-            if (firstRow.compareTo(secondRow) < 0) {
-                if (firstIterrator.hasNext()) {
-                    firstRow = firstIterrator.next();
+            if (leftCurrentRow.compareTo(rightCurrentRow) < 0) {
+                if (leftIterator.hasNext()) {
+                    leftCurrentRow = leftIterator.next();
                 } else {
                     break;
                 }
-            } else if (firstRow.compareTo(secondRow) > 0) {
-                if (secondIterrator.hasNext()) {
-                    secondRow = secondIterrator.next();
+            } else if (leftCurrentRow.compareTo(rightCurrentRow) > 0) {
+                if (rightIterator.hasNext()) {
+                    rightCurrentRow = rightIterator.next();
                 } else {
                     break;
                 }
             } else {
-                TableRow tableRow = new TableRow();
-                tableRow.setId(firstRow.getId());
-                tableRow.setValues(firstRow.getValues());
-                tableRow.setAddedValue(secondRow.getValues());
-                resultLinkedList.add(tableRow);
-                if (firstIterrator.hasNext() && secondIterrator.hasNext()) {
-                    firstRow = firstIterrator.next();
-                    secondRow = secondIterrator.next();
-                } else {
-                    break;
+                tempLinkedList.add(rightCurrentRow);
+                if (!rightIterator.hasNext() || !leftIterator.hasNext()) {
+                    addToResList(resultLinkedList, tempLinkedList, leftCurrentRow);
+                    return resultLinkedList;
                 }
+                rightNextRow = rightIterator.next();
+                while (rightNextRow.getId() == rightCurrentRow.getId() && rightIterator.hasNext()) {
+                    tempLinkedList.add(rightNextRow);
+                    rightNextRow = rightIterator.next();
+                }
+                addToResList(resultLinkedList, tempLinkedList, leftCurrentRow);
+                leftNextRow = leftIterator.next();
+                while (leftNextRow.getId() == rightCurrentRow.getId() && leftIterator.hasNext()) {
+                    addToResList(resultLinkedList, tempLinkedList, leftNextRow);
+                    leftNextRow = leftIterator.next();
+                }
+                rightCurrentRow = rightNextRow;
+                leftCurrentRow = leftNextRow;
+                tempLinkedList.clear();
             }
         }
         return resultLinkedList;
+    }
+
+    private void addToResList (LinkedList<TableRow> resultLinkedList,
+                               LinkedList<TableRow> tempLinkedList, TableRow leftCurrentRow) {
+        TableRow tableRow;
+        for (TableRow tr : tempLinkedList) {
+            tableRow = new TableRow();
+            tableRow.setId(leftCurrentRow.getId());
+            tableRow.getValues().add(leftCurrentRow.getValues().get(0));
+            tableRow.getValues().add(tr.getValues().get(0));
+            resultLinkedList.add(tableRow);
+        }
     }
 
     /*public HashMap<Integer, TableRow> joinTables(HashMap<Integer, TableRow> firstHashMap,
