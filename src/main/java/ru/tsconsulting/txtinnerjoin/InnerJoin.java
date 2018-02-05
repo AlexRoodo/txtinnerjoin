@@ -45,11 +45,12 @@ public class InnerJoin {
             txtReading.readFromTxt(firstFilePath.toString(), firstLinkedList);
             secondLinkedList = new LinkedList<>();
             txtReading.readFromTxt(secondFilePath.toString(), secondLinkedList);
-
             LinkedList<TableRow> resultHashJoinTables = joinTables.hashJoinTables(firstLinkedList,
                     secondLinkedList);
 
+
             TxtWriting txtWriting = new TxtWriting();
+
             Path resultJoinPath = Paths.get(firstFilePath.getParent().toString(),
                     "ResultJoin.txt");
             txtWriting.writeToTxt(resultJoinPath.toString(), resultJoinList);
@@ -57,9 +58,11 @@ public class InnerJoin {
             Path resultMergeJoinPath = Paths.get(firstFilePath.getParent().toString(),
                     "ResultMergeJoin.txt");
             txtWriting.writeToTxt(resultMergeJoinPath.toString(), resultMergeJoin);
+
             Path resultHashJoinPath = Paths.get(firstFilePath.getParent().toString(),
                     "ResultHashJoin.txt");
             txtWriting.writeToTxt(resultHashJoinPath.toString(), resultHashJoinTables);
+
         } else {
             System.out.println("Программе переданы неверные аргументы.");
             System.exit(1);
