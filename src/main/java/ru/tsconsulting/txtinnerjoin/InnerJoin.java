@@ -27,8 +27,11 @@ public class InnerJoin {
             txtReading.readFromTxt(firstFilePath.toString(), firstLinkedList);
             LinkedList<TableRow> secondLinkedList = new LinkedList<>();
             txtReading.readFromTxt(secondFilePath.toString(), secondLinkedList);
-            ArrayList<TableRow> firstArrayList = new ArrayList<>(firstLinkedList);
-            ArrayList<TableRow> secondArrayList = new ArrayList<>(secondLinkedList);
+
+            ArrayList<TableRow> firstArrayList = new ArrayList<>();
+            txtReading.readFromTxt(firstFilePath.toString(), firstArrayList);
+            ArrayList<TableRow> secondArrayList = new ArrayList<>();
+            txtReading.readFromTxt(secondFilePath.toString(), secondArrayList);
 
             firstLinkedList.sort(TableRow::compareTo);
             secondLinkedList.sort(TableRow::compareTo);
@@ -39,6 +42,14 @@ public class InnerJoin {
             LinkedList<TableRow> resultMergeJoin = joinTables.mergeJoinTables(firstLinkedList,
             secondLinkedList);
 
+            firstLinkedList = new LinkedList<>();
+            txtReading.readFromTxt(firstFilePath.toString(), firstLinkedList);
+            secondLinkedList = new LinkedList<>();
+            txtReading.readFromTxt(secondFilePath.toString(), secondLinkedList);
+
+            LinkedList<TableRow> resultHashJoinTables = joinTables.hashJoinTables(firstLinkedList,
+                    secondLinkedList);
+
             TxtWriting txtWriting = new TxtWriting();
             Path resultJoinPath = Paths.get(firstFilePath.getParent().toString(),
                     "ResultJoin.txt");
@@ -47,6 +58,9 @@ public class InnerJoin {
             Path resultMergeJoinPath = Paths.get(firstFilePath.getParent().toString(),
                     "ResultMergeJoin.txt");
             txtWriting.writeToTxt(resultMergeJoinPath.toString(), resultMergeJoin);
+            Path resultHashJoinPath = Paths.get(firstFilePath.getParent().toString(),
+                    "ResultHashJoin.txt");
+            txtWriting.writeToTxt(resultHashJoinPath.toString(), resultHashJoinTables);
         } else {
             System.out.println("Программе переданы неверные аргументы.");
             System.exit(1);

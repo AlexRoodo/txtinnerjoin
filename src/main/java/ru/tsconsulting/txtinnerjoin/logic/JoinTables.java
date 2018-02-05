@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 public class JoinTables {
-    /*public LinkedList<TableRow> joinTables(ArrayList<TableRow> leftArrayList,
+    public LinkedList<TableRow> joinTables (ArrayList<TableRow> leftArrayList,
                                           ArrayList<TableRow> rightArrayList) {
         LinkedList<TableRow> resultArrayList = new LinkedList<>();
 
@@ -25,9 +25,9 @@ public class JoinTables {
         }
 
         return resultArrayList;
-    }*/
+    }
 
-    public LinkedList<TableRow> joinTables(LinkedList<TableRow> leftLinkedList,
+    public LinkedList<TableRow> mergeJoinTables (LinkedList<TableRow> leftLinkedList,
                                                 LinkedList<TableRow> rightLinkedList) {
 
         LinkedList<TableRow> resultLinkedList = new LinkedList<>();
@@ -90,27 +90,43 @@ public class JoinTables {
         }
     }
 
-    /*public HashMap<Integer, TableRow> joinTables(HashMap<Integer, TableRow> firstHashMap,
-                                                 HashMap<Integer, TableRow> secondHashMap) {
+    public LinkedList<TableRow> hashJoinTables (LinkedList<TableRow> leftLinkedList,
+                                           LinkedList<TableRow> rightLinkedList) {
 
-        HashMap<Integer, TableRow> resultHashMap;
-        if (firstHashMap.keySet().size() < secondHashMap.keySet().size()) {
-            resultHashMap = new HashMap<>(secondHashMap);
+        HashMap<Integer, LinkedList<String>> resultHashMap = new HashMap<>();
+        LinkedList<TableRow> initialList;
+        LinkedList<TableRow> verifiableList;
+        LinkedList<TableRow> resultLinkedList = new LinkedList<>();
+
+        if (leftLinkedList.size() < rightLinkedList.size()) {
+            initialList = leftLinkedList;
+            verifiableList = rightLinkedList;
         } else {
-            resultHashMap = new HashMap<>(firstHashMap);
-            firstHashMap = secondHashMap;
+            initialList = rightLinkedList;
+            verifiableList = leftLinkedList;
         }
-        for (Integer i : firstHashMap.keySet()) {
-            if (resultHashMap.containsKey(i)) {
-                resultHashMap.get(i).setAddedValue(firstHashMap.get(i).getValues());
+
+        for (TableRow currentTableRow : initialList) {
+            if (resultHashMap.containsKey(currentTableRow.getId())) {
+                resultHashMap.get(currentTableRow.getId()).add(currentTableRow.getValues().get(0));
+            } else {
+                resultHashMap.put(currentTableRow.getId(),
+                        new LinkedList<>(currentTableRow.getValues()));
             }
         }
-        for (Integer i : resultHashMap.keySet()) {
-            if (resultHashMap.get(i).getAddedValue().equalsIgnoreCase("")) {
-                resultHashMap.remove(i);
+
+        for (TableRow actualTableRow : verifiableList) {
+            if (resultHashMap.containsKey(actualTableRow.getId())) {
+                for (String s : resultHashMap.get(actualTableRow.getId())) {
+                    TableRow tableRow = new TableRow();
+                    tableRow.setId(actualTableRow.getId());
+                    tableRow.getValues().add(actualTableRow.getValues().get(0));
+                    tableRow.getValues().add(s);
+                    resultLinkedList.add(tableRow);
+                }
             }
         }
-        resultHashMap.keySet().forEach(System.out::println);
-        return resultHashMap;
-    }*/
+
+        return resultLinkedList;
+    }
 }
