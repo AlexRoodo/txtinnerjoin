@@ -7,14 +7,13 @@ import ru.tsconsulting.txtinnerjoin.writing.TxtWriting;
 
 import java.nio.file.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 
 public class InnerJoin {
     public static void main(String[] args) {
         if (args.length != 2) {
             System.out.println("Необходимо передать программе 2 аргумента - путь к исходному " +
-                    "файлу и имя второго файла в том же каталоге");
+                    "файлу и имя второго файла");
             System.exit(1);
         }
 
@@ -24,21 +23,30 @@ public class InnerJoin {
         if (firstFilePath.toFile().exists() && secondFilePath.toFile().exists()) {
 
             TxtReading txtReading = new TxtReading();
-            LinkedList<TableRow> firstArrayList = new LinkedList<>();
-            txtReading.readFromTxt(firstFilePath.toString(), firstArrayList);
-            LinkedList<TableRow> secondArrayList = new LinkedList<>();
-            txtReading.readFromTxt(secondFilePath.toString(), secondArrayList);
+            LinkedList<TableRow> firstLinkedList = new LinkedList<>();
+            txtReading.readFromTxt(firstFilePath.toString(), firstLinkedList);
+            LinkedList<TableRow> secondLinkedList = new LinkedList<>();
+            txtReading.readFromTxt(secondFilePath.toString(), secondLinkedList);
+            ArrayList<TableRow> firstArrayList = new ArrayList<>(firstLinkedList);
+            ArrayList<TableRow> secondArrayList = new ArrayList<>(secondLinkedList);
 
-            firstArrayList.sort(TableRow::compareTo);
-            secondArrayList.sort(TableRow::compareTo);
+            firstLinkedList.sort(TableRow::compareTo);
+            secondLinkedList.sort(TableRow::compareTo);
 
             JoinTables joinTables = new JoinTables();
-            LinkedList<TableRow> resultArrayList = joinTables.joinTables(firstArrayList,
-            secondArrayList);
+            LinkedList<TableRow> resultJoinList = joinTables.joinTables(firstArrayList,
+                    secondArrayList);
+            LinkedList<TableRow> resultMergeJoin = joinTables.mergeJoinTables(firstLinkedList,
+            secondLinkedList);
 
             TxtWriting txtWriting = new TxtWriting();
-            Path resultPath = Paths.get(firstFilePath.getParent().toString(), "Result.txt");
-            txtWriting.writeToTxt(resultPath.toString(), resultArrayList);
+            Path resultJoinPath = Paths.get(firstFilePath.getParent().toString(),
+                    "ResultJoin.txt");
+            txtWriting.writeToTxt(resultJoinPath.toString(), resultJoinList);
+
+            Path resultMergeJoinPath = Paths.get(firstFilePath.getParent().toString(),
+                    "ResultMergeJoin.txt");
+            txtWriting.writeToTxt(resultMergeJoinPath.toString(), resultMergeJoin);
         } else {
             System.out.println("Программе переданы неверные аргументы.");
             System.exit(1);
