@@ -17,8 +17,7 @@ public class TxtWriting {
         for (TableRow tr : resultArrayList) {
             linkedList.add(tr.toString());
         }
-        String header = String.format("%-5s%-15s%-15s", "ID", "A.Table", "B.Table");
-        linkedList.addFirst(header);
+        linkedList.addFirst(String.format("%-5s%-15s%-15s", "ID", "A.Table", "B.Table"));
         try {
             Files.write(Paths.get(file), linkedList, StandardCharsets.UTF_8);
         } catch (IOException e) {
